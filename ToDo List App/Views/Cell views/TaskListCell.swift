@@ -16,7 +16,7 @@ struct TaskListCell: View {
     
     var body: some View {
         HStack {
-            Text(task.taskTitle ?? "")
+            Text(task.taskTitle ?? "Untitled")
                 .opacity(task.isDone ? 0.5 : 1)
             Spacer()
             Button {

@@ -18,7 +18,7 @@ struct InProgressView: View {
                 }
                 ForEach(fetchedTaskList) { item in
                     if(item.taskArray.allSatisfy{!$0.isDone} && !item.taskArray.isEmpty) {
-                        Section(item.title ?? "") {
+                        Section(item.title!) {
                             Text("All tasks are in progress..")
                         }
                     }
@@ -26,7 +26,7 @@ struct InProgressView: View {
                         EmptyView()
                     }
                     else {
-                        Section(item.title ?? "") {
+                        Section(item.title!) {
                             ForEach(item.taskArray.filter{!$0.isDone}) { task in
                                 TaskListCell(task: task, item: item)
                             }

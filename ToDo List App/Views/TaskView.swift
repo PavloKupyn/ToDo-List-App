@@ -15,7 +15,7 @@ struct TaskView: View {
     var body: some View {
         NavigationView {
                 VStack(alignment: .center) {
-                    Text(item.title ?? "")
+                    Text(item.title ?? "Untitled")
                         .font(.title)
                         .fontWeight(.bold)
                     

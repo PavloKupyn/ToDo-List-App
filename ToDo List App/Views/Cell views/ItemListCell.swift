@@ -15,7 +15,7 @@ struct ItemListCell: View {
     
     var body: some View {
         HStack {
-            Text(item.title ?? "")
+            Text(item.title ?? "Untitled")
                 .font(Font.system(size: 20, weight: .bold, design: .rounded))
             Spacer()
             Image(systemName: "figure.walk")
