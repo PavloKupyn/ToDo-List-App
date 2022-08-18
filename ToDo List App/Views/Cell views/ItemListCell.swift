@@ -16,8 +16,10 @@ struct ItemListCell: View {
     var body: some View {
         HStack {
             Text(item.title ?? "")
-                .font(Font.system(size: 20, weight: .bold, design: .serif))
-                .frame(width: 220)
+                .font(Font.system(size: 20, weight: .bold, design: .rounded))
+            Spacer()
+            Image(systemName: "figure.walk")
+                .foregroundColor(.accentColor)
         }
         .sheet(isPresented: $isEdit) {
             AddListView(addView: $isEdit)

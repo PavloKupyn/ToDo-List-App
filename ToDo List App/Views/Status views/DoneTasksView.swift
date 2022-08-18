@@ -13,6 +13,9 @@ struct DoneTasksView: View {
     var body: some View {
         VStack {
             List {
+                if (fetchedTaskList.isEmpty || fetchedTaskList.allSatisfy{$0.taskArray.isEmpty} || fetchedTaskList.allSatisfy{$0.taskArray.allSatisfy{!$0.isDone}}) {
+                    emptyStatus
+                }
                 ForEach(fetchedTaskList) { item in
                     if(item.taskArray.allSatisfy{$0.isDone} && !item.taskArray.isEmpty) {
                         Section(item.title ?? "") {
@@ -35,8 +38,22 @@ struct DoneTasksView: View {
     }
 }
 
+var emptyStatus: some View {
+    VStack {
+        Text("Nothing to see here yet.")
+            .font(.title)
+            .fontWeight(.black)
+            .multilineTextAlignment(.center)
+        .padding(.leading, 20)
+        Image("dudes")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+    }
+}
+
 struct DoneTasksView_Previews: PreviewProvider {
     static var previews: some View {
         DoneTasksView()
+            .preferredColorScheme(.dark)
     }
 }

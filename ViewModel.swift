@@ -71,6 +71,12 @@ class CoreDataTaskListVM: ObservableObject {
         context.delete(item)
         save(context: context)
     }
+    func deleteAllItems(items: FetchedResults<TodoItem>, context: NSManagedObjectContext) {
+        for item in items {
+            context.delete(item)
+        }
+        save(context: context)
+    }
     func deleteTask(task: TodoTask, context: NSManagedObjectContext)
     {
         context.delete(task)
