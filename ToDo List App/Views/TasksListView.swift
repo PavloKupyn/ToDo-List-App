@@ -12,6 +12,7 @@ struct TasksListView: View {
     @EnvironmentObject var model: CoreDataTaskListVM
     @State private var addView = false
     @FetchRequest(entity: TodoItem.entity(), sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)]) var fetchedTaskList: FetchedResults<TodoItem>
+    @State private var showingAlert =  false
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -21,13 +22,19 @@ struct TasksListView: View {
                 }
                 if (fetchedTaskList.isEmpty)
                 {
-                    Image("tasks")
+                    Image("list")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .padding(.top, 50)
-                    Text("get them tasks done")
-                        .font(.title)
-                        .fontWeight(.bold)
+                        .padding([.top, .trailing, .bottom], 50)
+                    HStack {
+                        Image(systemName: "hourglass.bottomhalf.filled")
+                            .foregroundColor(.blue)
+                        Text("get them tasks done")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Image(systemName: "hourglass.tophalf.filled")
+                            .foregroundColor(.blue)
+                    }
                 }
                 List {
                         ForEach(fetchedTaskList) { item in
@@ -61,7 +68,7 @@ struct TasksListView: View {
     
     var deleteButton: some View {
         Button {
-            model.deleteAllItems(items: fetchedTaskList, context: viewContext)
+            showingAlert = true
             } label: {
                 HStack {
                     Image(systemName: "minus.circle.fill")
@@ -71,6 +78,12 @@ struct TasksListView: View {
                 .foregroundColor(.red)
             }
             .buttonStyle(GrowingButton())
+            .alert("Are you sure?", isPresented: $showingAlert) {
+                Button("Delete", role: .destructive) { model.deleteAllItems(items: fetchedTaskList, context: viewContext)}
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This action will delete all you items")
+            }
     }
     var addItemButton: some View {
         Button(action: {

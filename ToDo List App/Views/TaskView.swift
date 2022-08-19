@@ -18,6 +18,15 @@ struct TaskView: View {
                     Text(item.title ?? "Untitled")
                         .font(.title)
                         .fontWeight(.bold)
+                    if(item.taskArray.isEmpty) {
+                        VStack {
+                            Image("empty_state")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            Text("No tasks here yet.")
+                                .font(Font.system(size: 30, weight: .black, design: .rounded))
+                        }
+                    }
                     
                     List {
                         ForEach(item.taskArray) { task in

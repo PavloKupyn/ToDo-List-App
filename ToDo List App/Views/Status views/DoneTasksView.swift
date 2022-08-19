@@ -39,15 +39,23 @@ struct DoneTasksView: View {
 }
 
 var emptyStatus: some View {
+    
     VStack {
-        Text("Nothing to see here yet.")
-            .font(.title)
-            .fontWeight(.black)
-            .multilineTextAlignment(.center)
-        .padding(.leading, 20)
-        Image("dudes")
+        Image(systemName: "book.closed.fill")
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .frame(width: 100, height: 100)
+            .padding([.bottom, .top], 20)
+        VStack {
+            Text("Nothing to see here yet.")
+                .font(Font.system(size: 30, weight: .black, design: .rounded))
+                .multilineTextAlignment(.center)
+                .padding(.leading, 20)
+            Spacer()
+            Image("empty_state")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
+       
     }
 }
 
