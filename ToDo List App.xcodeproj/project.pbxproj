@@ -111,12 +111,12 @@
 		1AEB3D832875CFD100A22F3A = {
 			isa = PBXGroup;
 			children = (
-				1AA86446288EA65B0081F433 /* TodoItem+CoreDataClass.swift */,
-				1AA86447288EA65B0081F433 /* TodoItem+CoreDataProperties.swift */,
 				1A9B42F02888624F00D67BC9 /* ViewModel.swift */,
-				1A5CA83428885D2900BEA740 /* DataController.swift */,
 				1A5CA8332888274200BEA740 /* Core Data */,
 				1A5CA8242888054700BEA740 /* ToDo List App.xcdatamodeld */,
+				1A5CA83428885D2900BEA740 /* DataController.swift */,
+				1AA86446288EA65B0081F433 /* TodoItem+CoreDataClass.swift */,
+				1AA86447288EA65B0081F433 /* TodoItem+CoreDataProperties.swift */,
 				1AEB3D8E2875CFD200A22F3A /* ToDo List App */,
 				1AEB3D8D2875CFD200A22F3A /* Products */,
 			);
