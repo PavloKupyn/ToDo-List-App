@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct TaskView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var item: TodoItem
     @EnvironmentObject var model: CoreDataTaskListVM
     @State private var addView = false
-
+    @State private var showingAlert = false
     var body: some View {
         NavigationView {
                 VStack(alignment: .center) {
-                    Text(item.title ?? "Untitled")
-                        .font(.title)
-                        .fontWeight(.bold)
+                    HStack {
+                        Image(systemName: "chevron.right.square.fill")
+                        Text(item.title ?? "Untitled")
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Image(systemName: "chevron.left.square.fill")
+                    }
                     if(item.taskArray.isEmpty) {
                         VStack {
                             Image("empty_state")
@@ -40,7 +45,11 @@ struct TaskView: View {
                         CheckmarkAnimation()
                             .padding(.bottom, 260)
                     }
-                    addTaskButton
+                    HStack {
+                        deleteTasksButton
+                        Spacer()
+                        addTaskButton
+                    }
                     Spacer()
                 }
             .navigationBarHidden(true)
@@ -58,6 +67,26 @@ struct TaskView: View {
         })
         .buttonStyle(GrowingButton())
         .foregroundColor(.blue)
+    }
+    
+    var deleteTasksButton: some View {
+        Button {
+            showingAlert = true
+            } label: {
+                HStack {
+                    Image(systemName: "trash.fill")
+                    Text("Delete all")
+                        .fontWeight(.bold)
+                }
+                .foregroundColor(.red)
+            }
+            .buttonStyle(GrowingButton())
+            .alert("Are you sure?", isPresented: $showingAlert) {
+                Button("Delete", role: .destructive) { model.deleteAllTasks(tasks: item.taskArray, context: viewContext)}
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This action will delete all you tasks")
+            }
     }
     
 }

@@ -20,12 +20,11 @@ struct TasksListView: View {
                     doneSection
                     inProgressSection
                 }
-                if (fetchedTaskList.isEmpty)
-                {
-                    Image("list")
+                if (fetchedTaskList.isEmpty) {
+                    Image("darts")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .padding([.top, .trailing, .bottom], 50)
+                        .padding([.top, .trailing, .bottom], 20)
                     HStack {
                         Image(systemName: "hourglass.bottomhalf.filled")
                             .foregroundColor(.blue)

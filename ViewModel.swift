@@ -19,6 +19,7 @@ class CoreDataTaskListVM: ObservableObject {
     @Published var listItem: TodoItem!
     @Published var taskItem: TodoTask!
     
+    //MARK: - intents
     func addItem(context: NSManagedObjectContext) {
         if listItem == nil {
             let newItem = TodoItem(context: context)
@@ -75,6 +76,10 @@ class CoreDataTaskListVM: ObservableObject {
         for item in items {
             context.delete(item)
         }
+        save(context: context)
+    }
+    func deleteAllTasks(tasks: [TodoTask], context: NSManagedObjectContext) {
+        tasks.indices.forEach {context.delete(tasks[$0])}
         save(context: context)
     }
     func deleteTask(task: TodoTask, context: NSManagedObjectContext)
