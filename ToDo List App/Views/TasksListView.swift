@@ -125,6 +125,7 @@ struct TasksListView: View {
             Image("darts")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .frame(width: 300, height: 300)
                 .padding([.top, .trailing, .bottom], 20)
             HStack {
                 Image(systemName: "hourglass.bottomhalf.filled")
@@ -136,6 +137,7 @@ struct TasksListView: View {
                     .foregroundColor(.blue)
             }
         }
+        .padding(.top, 100)
     }
 
 struct TasksListView_Previews: PreviewProvider {
