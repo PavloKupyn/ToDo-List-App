@@ -46,7 +46,12 @@ struct TaskView: View {
                             .padding(.bottom, 260)
                     }
                     HStack {
-                        deleteTasksButton
+                        if item.taskArray.isEmpty {
+                            EmptyView()
+                        }
+                        else {
+                            deleteTasksButton
+                        }
                         Spacer()
                         addTaskButton
                     }
@@ -88,7 +93,6 @@ struct TaskView: View {
                 Text("This action will delete all you tasks")
             }
     }
-    
 }
 
 struct TaskView_Previews: PreviewProvider {

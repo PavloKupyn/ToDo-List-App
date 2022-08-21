@@ -56,9 +56,12 @@ struct TasksListView: View {
                         addItemButton
                     }
                 }
-                
-                deleteButton
-                
+                if fetchedTaskList.isEmpty {
+                    EmptyView()
+                }
+                else {
+                    deleteButton
+                }
                 Spacer()
             }
             .navigationBarTitle("ToDo list", displayMode: .inline)
@@ -70,7 +73,7 @@ struct TasksListView: View {
             showingAlert = true
             } label: {
                 HStack {
-                    Image(systemName: "minus.circle.fill")
+                    Image(systemName: "trash.fill")
                     Text("Delete all")
                         .fontWeight(.bold)
                 }

@@ -32,6 +32,7 @@ class CoreDataTaskListVM: ObservableObject {
         save(context: context)
         itemTitle = ""
     }
+    
     func addTask(item:TodoItem, context: NSManagedObjectContext)
     {
         if taskItem == nil {
@@ -47,6 +48,7 @@ class CoreDataTaskListVM: ObservableObject {
         save(context: context)
         taskListTitle = ""
     }
+    
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
@@ -54,6 +56,7 @@ class CoreDataTaskListVM: ObservableObject {
             print("Error saving Core Data \(error.localizedDescription)")
         }
     }
+    
     func isDone(task: TodoTask, context: NSManagedObjectContext) {
         withAnimation {
             task.isDone.toggle()
@@ -64,6 +67,7 @@ class CoreDataTaskListVM: ObservableObject {
     func editItem(item: TodoItem) {
         listItem = item
     }
+    
     func editTask(task: TodoTask) {
         taskItem = task
     }
@@ -72,16 +76,20 @@ class CoreDataTaskListVM: ObservableObject {
         context.delete(item)
         save(context: context)
     }
+    
     func deleteAllItems(items: FetchedResults<TodoItem>, context: NSManagedObjectContext) {
         for item in items {
             context.delete(item)
         }
+        items.indices.forEach {context.delete(items[$0])}
         save(context: context)
     }
+    
     func deleteAllTasks(tasks: [TodoTask], context: NSManagedObjectContext) {
         tasks.indices.forEach {context.delete(tasks[$0])}
         save(context: context)
     }
+    
     func deleteTask(task: TodoTask, context: NSManagedObjectContext)
     {
         context.delete(task)
