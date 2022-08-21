@@ -22,6 +22,14 @@ class DataController
             }
         }
     }
+    
+    func save(context: NSManagedObjectContext) {
+        do {
+            try context.save()
+        } catch let error {
+            print("Error saving Core Data \(error.localizedDescription)")
+        }
+    }
 }
 
 

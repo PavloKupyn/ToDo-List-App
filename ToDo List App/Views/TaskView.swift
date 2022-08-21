@@ -45,15 +45,15 @@ struct TaskView: View {
                         CheckmarkAnimation()
                             .padding(.bottom, 260)
                     }
-                    HStack {
-                        if item.taskArray.isEmpty {
-                            EmptyView()
-                        }
-                        else {
-                            deleteTasksButton
-                        }
-                        Spacer()
+                    if item.taskArray.isEmpty {
                         addTaskButton
+                    }
+                    else {
+                        HStack {
+                            deleteTasksButton
+                            Spacer()
+                            addTaskButton
+                        }
                     }
                     Spacer()
                 }
@@ -62,7 +62,7 @@ struct TaskView: View {
         }
     }
     
-    var addTaskButton: some View {
+    private var addTaskButton: some View {
         Button(action: {
             model.taskListTitle = ""
             model.taskItem = nil
@@ -74,7 +74,7 @@ struct TaskView: View {
         .foregroundColor(.blue)
     }
     
-    var deleteTasksButton: some View {
+    private var deleteTasksButton: some View {
         Button {
             showingAlert = true
             } label: {

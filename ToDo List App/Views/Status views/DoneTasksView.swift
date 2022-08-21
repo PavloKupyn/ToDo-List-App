@@ -14,7 +14,7 @@ struct DoneTasksView: View {
         VStack {
             List {
                 if (fetchedTaskList.isEmpty || fetchedTaskList.allSatisfy{$0.taskArray.isEmpty} || fetchedTaskList.allSatisfy{$0.taskArray.allSatisfy{!$0.isDone}}) {
-                    emptyStatus
+                    emptyStateStatus
                 }
                 ForEach(fetchedTaskList) { item in
                     if(item.taskArray.allSatisfy{$0.isDone} && !item.taskArray.isEmpty) {
@@ -38,7 +38,7 @@ struct DoneTasksView: View {
     }
 }
 
-var emptyStatus: some View {
+var emptyStateStatus: some View {
     
     VStack {
         Image(systemName: "book.closed.fill")

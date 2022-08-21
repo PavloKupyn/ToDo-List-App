@@ -13,7 +13,6 @@ import SwiftUI
 
 class CoreDataTaskListVM: ObservableObject {
     let manager = DataController.instance
-    @Published var items: [TodoItem] = []
     @Published var taskListTitle = ""
     @Published var itemTitle = ""
     @Published var listItem: TodoItem!
@@ -50,11 +49,7 @@ class CoreDataTaskListVM: ObservableObject {
     }
     
     func save(context: NSManagedObjectContext) {
-        do {
-            try context.save()
-        } catch let error {
-            print("Error saving Core Data \(error.localizedDescription)")
-        }
+        manager.save(context: context)
     }
     
     func isDone(task: TodoTask, context: NSManagedObjectContext) {

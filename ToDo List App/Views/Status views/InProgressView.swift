@@ -14,7 +14,7 @@ struct InProgressView: View {
         VStack {
             List {
                 if (fetchedTaskList.isEmpty || fetchedTaskList.allSatisfy{$0.taskArray.isEmpty} || fetchedTaskList.allSatisfy{$0.taskArray.allSatisfy{$0.isDone}}) {
-                    emptyStatus
+                    emptyStateStatus
                 }
                 ForEach(fetchedTaskList) { item in
                     if(item.taskArray.allSatisfy{!$0.isDone} && !item.taskArray.isEmpty) {

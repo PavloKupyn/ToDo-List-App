@@ -13,6 +13,7 @@ struct TasksListView: View {
     @State private var addView = false
     @FetchRequest(entity: TodoItem.entity(), sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)]) var fetchedTaskList: FetchedResults<TodoItem>
     @State private var showingAlert =  false
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -21,19 +22,7 @@ struct TasksListView: View {
                     inProgressSection
                 }
                 if (fetchedTaskList.isEmpty) {
-                    Image("darts")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding([.top, .trailing, .bottom], 20)
-                    HStack {
-                        Image(systemName: "hourglass.bottomhalf.filled")
-                            .foregroundColor(.blue)
-                        Text("get them tasks done")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Image(systemName: "hourglass.tophalf.filled")
-                            .foregroundColor(.blue)
-                    }
+                    emptyStateMain
                 }
                 List {
                         ForEach(fetchedTaskList) { item in
@@ -41,9 +30,7 @@ struct TasksListView: View {
                                 ItemListCell(item: item)
                                 }
                             }
-                        .onMove { indexSet, offset in
-//                            $model.items.move(fromOffsets: indexSet, toOffset: offset)
-                        }                        
+                        .onMove { indexSet, offset in }
                 }
                 .sheet(isPresented: $addView) {
                     AddListView(addView: $addView)
@@ -87,7 +74,7 @@ struct TasksListView: View {
                 Text("This action will delete all you items")
             }
     }
-    var addItemButton: some View {
+    private var addItemButton: some View {
         Button(action: {
             model.itemTitle = ""
             model.listItem = nil
@@ -99,7 +86,7 @@ struct TasksListView: View {
         .foregroundColor(.blue)
     }
     
-    var doneSection: some View {
+    private var doneSection: some View {
         NavigationLink(destination: DoneTasksView()) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -117,7 +104,7 @@ struct TasksListView: View {
         }
     }
 
-    var inProgressSection: some View {
+    private var inProgressSection: some View {
         NavigationLink(destination: InProgressView()) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -133,7 +120,23 @@ struct TasksListView: View {
         }
         .padding(.leading)
     }
-
+    private var emptyStateMain: some View {
+        VStack {
+            Image("darts")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding([.top, .trailing, .bottom], 20)
+            HStack {
+                Image(systemName: "hourglass.bottomhalf.filled")
+                    .foregroundColor(.blue)
+                Text("get them tasks done")
+                  .font(.title)
+                  .fontWeight(.bold)
+                Image(systemName: "hourglass.tophalf.filled")
+                    .foregroundColor(.blue)
+            }
+        }
+    }
 
 struct TasksListView_Previews: PreviewProvider {
     static var previews: some View {
